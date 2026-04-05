@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>說課 — A Musical Shape｜英語彈性課程公開授課</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #7a9e7e;
+    --sage-light: #a8c5ac;
+    --sage-pale: #e8f0e9;
+    --mauve: #9e7a87;
+    --mauve-light: #c5a8b4;
+    --tan: #c4a882;
+    --tan-light: #e8d8c4;
+    --tan-pale: #f5efe6;
+    --slate: #6b7fa3;
+    --slate-dark: #4a5a7a;
+    --cream: #faf8f4;
+    --white: #ffffff;
+    --text-dark: #2c2c2c;
+    --text-mid: #555;
+    --text-light: #888;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,248,244,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-brand {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--sage);
+    letter-spacing: 0.05em;
+  }
+  .nav-links {
+    display: flex; gap: 1.5rem; list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    transition: color 0.2s;
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--sage); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(168,197,172,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(197,168,180,0.2) 0%, transparent 60%),
+      var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 25% 35%, rgba(122,158,126,0.08) 1px, transparent 1px),
+      radial-gradient(circle at 75% 65%, rgba(158,122,135,0.08) 1px, transparent 1px);
+    background-size: 40px 40px, 60px 60px;
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--sage-pale);
+    color: var(--sage);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 0.4rem 1.2rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    border: 1.5px solid rgba(122,158,126,0.3);
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-subtitle {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--sage);
+    font-weight: 600;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-meta {
+    display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .hero-meta-item {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.9rem; color: var(--text-mid);
+  }
+  .hero-meta-item .icon { font-size: 1.1rem; }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .btn-primary {
+    background: var(--sage);
+    color: white;
+    text-decoration: none;
+    padding: 0.9rem 2.2rem;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: all 0.25s;
+    box-shadow: 0 4px 16px rgba(122,158,126,0.35);
+  }
+  .btn-primary:hover {
+    background: var(--sage-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(122,158,126,0.4);
+  }
+  .btn-secondary {
+    background: white;
+    color: var(--sage);
+    text-decoration: none;
+    padding: 0.9rem 2.2rem;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: 2px solid var(--sage);
+    transition: all 0.25s;
+  }
+  .btn-secondary:hover {
+    background: var(--sage-pale);
+    transform: translateY(-2px);
+  }
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    color: var(--text-light); font-size: 0.75rem; letter-spacing: 0.1em;
+    animation: bounce 2s infinite;
+  }
+  .hero-scroll .arrow { font-size: 1.2rem; }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .section-header {
+    text-align: center; margin-bottom: 3.5rem;
+  }
+  .section-num {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--sage);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.3;
+  }
+  .section-divider {
+    width: 40px; height: 3px;
+    background: var(--sage);
+    border-radius: 2px;
+    margin: 1rem auto 0;
+  }
+
+  /* ── OUTLINE ── */
+  #outline { background: white; }
+  .outline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  .outline-card {
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border: 1.5px solid transparent;
+    transition: all 0.25s;
+    cursor: default;
+  }
+  .outline-card:hover {
+    border-color: var(--sage-light);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+  .outline-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--sage-light);
+    line-height: 1;
+    margin-bottom: 0.6rem;
+  }
+  .outline-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  /* ── INTRO ── */
+  #intro { background: var(--cream); }
+  .intro-center-box {
+    background: var(--sage-pale);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .intro-center-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+  }
+  .intro-cards-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 480px; margin: 0 auto;
+  }
+  .intro-card {
+    background: var(--sage);
+    border-radius: 14px;
+    padding: 1.5rem 1rem;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .intro-card-sub {
+    font-size: 0.8rem;
+    font-weight: 400;
+    opacity: 0.85;
+    margin-top: 0.3rem;
+  }
+
+  /* materials */
+  .materials-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;
+  }
+  .material-block {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .material-header {
+    padding: 1.2rem 1.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .material-header.green { background: var(--sage); }
+  .material-header.sage2 { background: #6b8f72; }
+  .material-time {
+    font-size: 0.85rem;
+    font-weight: 400;
+    background: rgba(255,255,255,0.25);
+    border-radius: 100px;
+    padding: 0.2rem 0.7rem;
+  }
+  .material-body {
+    background: white;
+    padding: 1.2rem 1.5rem;
+  }
+  .material-body li {
+    padding: 0.3rem 0;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    list-style: none;
+    display: flex; align-items: flex-start; gap: 0.5rem;
+  }
+  .material-body li::before { content: '•'; color: var(--sage); font-weight: 700; flex-shrink: 0; }
+
+  /* ── STEPS ── */
+  #steps { background: white; }
+  .steps-flow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    position: relative;
+  }
+  .steps-flow::before {
+    content: '';
+    position: absolute;
+    top: 3rem; left: calc(16.66% + 0.75rem); right: calc(16.66% + 0.75rem);
+    height: 2px;
+    background: linear-gradient(90deg, var(--sage-light), var(--sage));
+    z-index: 0;
+  }
+  .step-card {
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative; z-index: 1;
+    transition: all 0.25s;
+  }
+  .step-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    background: white;
+  }
+  .step-num-circle {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 auto 1rem;
+    background: var(--sage);
+    box-shadow: 0 4px 12px rgba(122,158,126,0.4);
+  }
+  .step-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-dark);
+    margin-bottom: 0.8rem;
+  }
+  .step-tag {
+    display: inline-block;
+    background: var(--sage-pale);
+    color: var(--sage);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 100px;
+    margin: 0.2rem;
+  }
+  .step-details {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--cream); }
+  .skills-grid-outer {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+  }
+  .skills-center-label {
+    text-align: center;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    background: var(--slate-dark);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    margin: 1.5rem auto;
+    max-width: 400px;
+  }
+  .skills-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem;
+  }
+  .skill-chip {
+    background: var(--sage-pale);
+    border: 1.5px solid rgba(122,158,126,0.3);
+    border-radius: 12px;
+    padding: 0.8rem;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--slate-dark);
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .skill-chip:hover {
+    background: var(--sage);
+    color: white;
+    border-color: var(--sage);
+    transform: scale(1.03);
+  }
+  .skill-chip.highlight {
+    background: var(--sage);
+    color: white;
+    border-color: var(--sage);
+    box-shadow: 0 4px 12px rgba(122,158,126,0.4);
+    transform: scale(1.05);
+  }
+
+  /* ── LESSON PLAN ── */
+  #lesson { background: white; }
+  .lesson-timeline {
+    display: flex; flex-direction: column; gap: 1.5rem;
+    position: relative;
+    padding-left: 2rem;
+  }
+  .lesson-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--sage-light), var(--tan-light));
+    border-radius: 3px;
+  }
+  .lesson-node {
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    position: relative;
+    transition: all 0.25s;
+  }
+  .lesson-node:hover {
+    background: white;
+    box-shadow: var(--shadow);
+    transform: translateX(4px);
+  }
+  .lesson-node::before {
+    content: '';
+    position: absolute;
+    left: -2.45rem; top: 1.5rem;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--sage);
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px var(--sage-light);
+  }
+  .lesson-node-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--sage-light);
+    float: right;
+    line-height: 1;
+  }
+  .lesson-node-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    margin-bottom: 0.3rem;
+  }
+  .lesson-node-sub {
+    font-size: 0.85rem;
+    color: var(--text-light);
+  }
+  .lesson-node-badge {
+    display: inline-block;
+    background: var(--sage-pale);
+    color: var(--sage);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 100px;
+    margin-top: 0.6rem;
+  }
+
+  /* ── TOOLS ── */
+  #tools { background: var(--tan-pale); }
+  .tools-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .tool-card {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.25s;
+  }
+  .tool-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+  }
+  .tool-header {
+    background: var(--tan);
+    padding: 1.5rem;
+    text-align: center;
+    color: white;
+  }
+  .tool-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+  .tool-category {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    opacity: 0.85;
+  }
+  .tool-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 0.3rem;
+  }
+  .tool-body {
+    padding: 1.2rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+  }
+  .tool-purpose {
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+
+  /* ── OBSERVE CARD ── */
+  #observe { background: var(--sage); }
+  .observe-inner {
+    background: white;
+    border-radius: 24px;
+    padding: 3rem;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .observe-badge {
+    display: inline-block;
+    background: var(--mauve-light);
+    color: var(--mauve);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 0.4rem 1.2rem;
+    border-radius: 100px;
+    margin-bottom: 1.2rem;
+  }
+  .observe-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .observe-subtitle {
+    color: var(--sage);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .observe-details {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem;
+  }
+  .observe-detail-item {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    text-align: left;
+  }
+  .observe-detail-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-light);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .observe-detail-value {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-dark);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text-dark);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+  }
+  footer strong { color: rgba(255,255,255,0.9); }
+
+
+  /* ── HANDOUT ── */
+  .handout-block {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+  }
+  .handout-block-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .handout-block-icon { font-size: 1.4rem; }
+  .handout-intro-text {
+    background: var(--sage-pale);
+    border-left: 4px solid var(--sage);
+    border-radius: 0 12px 12px 0;
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+  }
+  .cc-types-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .cc-type-card {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 1.2rem;
+    border: 1.5px solid rgba(0,0,0,0.06);
+    transition: all 0.2s;
+  }
+  .cc-type-card:hover { border-color: var(--sage-light); transform: translateY(-2px); }
+  .cc-type-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--slate-dark);
+    margin-bottom: 0.3rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .cc-type-zh {
+    font-size: 0.75rem;
+    color: var(--sage);
+    font-weight: 600;
+    background: var(--sage-pale);
+    padding: 0.1rem 0.5rem;
+    border-radius: 100px;
+  }
+  .cc-type-desc { font-size: 0.8rem; color: var(--text-light); margin-bottom: 0.5rem; }
+  .cc-example {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    background: white;
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    line-height: 1.6;
+  }
+  .cc-exam-box {
+    background: var(--tan-pale);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1.5px solid var(--tan-light);
+  }
+  .cc-exam-label {
+    font-weight: 700; font-size: 0.9rem; color: var(--tan);
+    margin-bottom: 0.8rem; letter-spacing: 0.05em;
+  }
+  .cc-exam-passage {
+    background: white; border-radius: 10px; padding: 1rem;
+    font-size: 0.9rem; line-height: 1.8; margin-bottom: 1rem;
+    border-left: 3px solid var(--tan);
+  }
+  .cc-highlight { color: var(--sage); text-decoration: underline; text-decoration-style: dotted; }
+  .cc-exam-q {
+    font-weight: 700; font-size: 0.9rem; color: var(--text-dark);
+    margin-bottom: 0.8rem;
+  }
+  .cc-exam-options { display: flex; flex-direction: column; gap: 0.5rem; }
+  .cc-option {
+    background: white; border-radius: 8px; padding: 0.6rem 0.9rem;
+    font-size: 0.85rem; color: var(--text-mid);
+    border: 1.5px solid transparent;
+  }
+  .cc-option-correct {
+    background: var(--sage-pale);
+    color: var(--sage);
+    border-color: var(--sage-light);
+    font-weight: 700;
+  }
+  /* vocab */
+  .vocab-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.8rem;
+    margin-bottom: 2rem;
+  }
+  .vocab-card {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1.5px solid rgba(0,0,0,0.06);
+    transition: all 0.2s;
+    display: grid; grid-template-areas: "num word" "def def" "ex ex";
+    grid-template-columns: auto 1fr;
+    gap: 0.2rem 0.6rem;
+  }
+  .vocab-card:hover { border-color: var(--sage-light); box-shadow: var(--shadow); transform: translateY(-2px); }
+  .vocab-num {
+    grid-area: num;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--sage-light);
+    line-height: 1.2;
+  }
+  .vocab-word {
+    grid-area: word;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--slate-dark);
+    line-height: 1.2;
+  }
+  .vocab-def {
+    grid-area: def;
+    font-size: 0.78rem;
+    color: var(--text-mid);
+    margin-top: 0.2rem;
+  }
+  .vocab-ex {
+    grid-area: ex;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-style: italic;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    padding-top: 0.3rem;
+    margin-top: 0.2rem;
+  }
+  /* questions */
+  .handout-questions {
+    background: var(--sage-pale);
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+  .hq-title {
+    font-weight: 700; font-size: 1rem; color: var(--sage);
+    margin-bottom: 1rem; letter-spacing: 0.05em;
+  }
+  .hq-item {
+    background: white; border-radius: 10px; padding: 1rem 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+  .hq-q { font-size: 0.9rem; color: var(--text-dark); font-weight: 600; margin-bottom: 0.5rem; }
+  .hq-tag {
+    display: inline-block; background: var(--tan-light); color: var(--tan);
+    font-size: 0.7rem; font-weight: 700; padding: 0.1rem 0.5rem;
+    border-radius: 100px; margin-left: 0.3rem;
+  }
+  .hq-options { display: flex; flex-direction: column; gap: 0.3rem; }
+  .hq-options div { font-size: 0.85rem; color: var(--text-mid); padding-left: 0.5rem; }
+  @media (max-width: 700px) {
+    .cc-types-grid { grid-template-columns: 1fr; }
+    .cc-type-card[style*="span 2"] { grid-column: span 1; }
+    .vocab-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .steps-flow, .skills-row { grid-template-columns: 1fr 1fr; }
+    .steps-flow::before { display: none; }
+    .materials-grid, .tools-grid { grid-template-columns: 1fr; }
+    .observe-details { grid-template-columns: 1fr; }
+    .intro-cards-row { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">🎵 A Musical Shape — 說課</div>
+  <ul class="nav-links">
+    <li><a href="#outline">大綱</a></li>
+    <li><a href="#intro">課程介紹</a></li>
+    <li><a href="#steps">教學步驟</a></li>
+    <li><a href="#skills">閱讀技巧</a></li>
+    <li><a href="#lesson">教案</a></li>
+    <li><a href="#tools">工具</a></li>
+    <li><a href="#handout">自編講義</a></li>
+    <li><a href="#observe">觀課資訊</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">英語彈性課程公開授課 — 說課</div>
+  <h1 class="hero-title">A Musical Shape</h1>
+  <div class="hero-subtitle">寰語生活 × Context Clues 文意線索</div>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><span class="icon">👩‍🏫</span><span>授課教師：柯香伶</span></div>
+    <div class="hero-meta-item"><span class="icon">📅</span><span>觀課日期：4/9（四）第五節</span></div>
+    <div class="hero-meta-item"><span class="icon">📍</span><span>地點：909 教室（三樓）</span></div>
+  </div>
+  <div class="hero-cta">
+    <a href="#outline" class="btn-primary">了解說課內容</a>
+    <a href="#observe" class="btn-secondary">觀課資訊</a>
+  </div>
+  <div class="hero-scroll">
+    <span>向下捲動</span>
+    <span class="arrow">↓</span>
+  </div>
+</section>
+
+<!-- OUTLINE -->
+<section id="outline">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-num">SECTION 01</div>
+      <h2 class="section-title">說課大綱</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="outline-grid">
+      <div class="outline-card reveal">
+        <div class="outline-num">一</div>
+        <div class="outline-label">彈性課程介紹</div>
+      </div>
+      <div class="outline-card reveal">
+        <div class="outline-num">二</div>
+        <div class="outline-label">閱讀理解技巧<br>教學步驟</div>
+      </div>
+      <div class="outline-card reveal">
+        <div class="outline-num">三</div>
+        <div class="outline-label">公開授課主題</div>
+      </div>
+      <div class="outline-card reveal">
+        <div class="outline-num">四</div>
+        <div class="outline-label">教學工具</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-num">SECTION 01</div>
+      <h2 class="section-title">英語彈性課程【寰語生活】簡介</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="intro-center-box reveal">
+      <div class="intro-center-title">📚 閱讀測驗</div>
+      <div class="intro-cards-row">
+        <div class="intro-card">
+          字彙量
+          <div class="intro-card-sub">2000 單</div>
+        </div>
+        <div class="intro-card">
+          閱讀技巧
+          <div class="intro-card-sub">Close Reading</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="materials-grid reveal">
+      <div class="material-block">
+        <div class="material-header green">
+          2000 單
+          <span class="material-time">15～20 分鐘</span>
+        </div>
+        <div class="material-body">
+          <ul>
+            <li>一本背三年</li>
+            <li>七、八年級背 1200 單</li>
+            <li>九年級背 800 單（銜接高中端，難度較高）</li>
+            <li>上學期考試、下學期當作業</li>
+          </ul>
+        </div>
+      </div>
+      <div class="material-block">
+        <div class="material-header sage2">
+          Close Reading
+          <span class="material-time">25～30 分鐘</span>
+        </div>
+        <div class="material-body">
+          <ul>
+            <li>8 個閱讀理解技巧</li>
+            <li>每個技巧包含 2～3 篇閱讀</li>
+            <li>上學期 4 個、下學期 4 個</li>
+            <li>共用書籍 + 自編教材</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section id="steps">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-num">SECTION 02</div>
+      <h2 class="section-title">閱讀理解技巧教學步驟</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="steps-flow">
+      <div class="step-card reveal">
+        <div class="step-num-circle">1</div>
+        <div class="step-title">導入 — 閱讀策略技巧</div>
+        <span class="step-tag">YouTube 影片導論</span>
+        <span class="step-tag">舊文連結</span>
+        <div class="step-details">透過影片引入主題，再利用舊文連結學生先備知識</div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num-circle">2</div>
+        <div class="step-title">鷹架 — 字彙建構</div>
+        <span class="step-tag">超綱詞彙</span>
+        <span class="step-tag">用英文學英文</span>
+        <span class="step-tag">英語解釋例句</span>
+        <span class="step-tag">中文選項</span>
+        <div class="step-details">提供必要字彙支撐，降低閱讀阻力</div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num-circle">3</div>
+        <div class="step-title">遷移 — 新文本的應用</div>
+        <span class="step-tag">文本應用</span>
+        <span class="step-tag">畫關鍵句</span>
+        <span class="step-tag">完成題目</span>
+        <div class="step-details">培養獨立閱讀能力，實際應用技巧</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-num">SECTION 03</div>
+      <h2 class="section-title">英語閱讀理解技巧</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="skills-grid-outer reveal">
+      <div class="skills-row">
+        <div class="skill-chip">Main idea &amp; Details</div>
+        <div class="skill-chip">Sequences of Events</div>
+        <div class="skill-chip">Fact &amp; Opinion</div>
+        <div class="skill-chip">Compare &amp; Contrast</div>
+      </div>
+      <div class="skills-center-label">英語閱讀理解技巧 × 8</div>
+      <div class="skills-row">
+        <div class="skill-chip">Cause &amp; Effect</div>
+        <div class="skill-chip highlight">Context Clues<br><small>⭐ 本次公開授課</small></div>
+        <div class="skill-chip">Problem &amp; Solution</div>
+        <div class="skill-chip">Summarize</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LESSON PLAN -->
+<section id="lesson">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-num">SECTION 03</div>
+      <h2 class="section-title">公開授課主題：Context Clues 文意線索</h2>
+      <div class="section-divider"></div>
+      <p style="margin-top:1rem; color:var(--text-light); font-size:0.9rem;">共三節課｜課程規劃如下</p>
+    </div>
+
+    <div class="lesson-timeline">
+      <div class="lesson-node reveal">
+        <div class="lesson-node-num">1</div>
+        <div class="lesson-node-title">技巧鞏固</div>
+        <div class="lesson-node-sub">建立 Context Clues 文意線索的核心概念與應用策略</div>
+        <span class="lesson-node-badge">第一節</span>
+      </div>
+      <div class="lesson-node reveal">
+        <div class="lesson-node-num">2</div>
+        <div class="lesson-node-title">L15 Gyotaku</div>
+        <div class="lesson-node-sub">以 Gyotaku 魚拓文本練習文意線索技巧</div>
+        <span class="lesson-node-badge">第二節</span>
+      </div>
+      <div class="lesson-node reveal" style="border: 2px solid var(--sage-light);">
+        <div class="lesson-node-num" style="color:var(--sage);">3</div>
+        <div class="lesson-node-title" style="color:var(--sage);">⭐ L16 A Musical Shape（公開授課）</div>
+        <div class="lesson-node-sub">教學流程簡述：2000 單 → 建立文本內字彙表 → 閱讀文本</div>
+        <span class="lesson-node-badge" style="background:var(--sage);color:white;">本次觀課 — 4/9 第五節</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-num">SECTION 04</div>
+      <h2 class="section-title">教學工具</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-card reveal">
+        <div class="tool-header">
+          <div class="tool-icon">📖</div>
+          <div class="tool-category">字彙學習</div>
+          <div class="tool-name">Quizlet</div>
+        </div>
+        <div class="tool-body">
+          <div class="tool-purpose">對應活動</div>
+          2000 單字彙複習，透過一局個人練習及隨機分組練習，強化單字印象
+        </div>
+      </div>
+      <div class="tool-card reveal">
+        <div class="tool-header">
+          <div class="tool-icon">📡</div>
+          <div class="tool-category">即時推播</div>
+          <div class="tool-name">T++ 推播</div>
+        </div>
+        <div class="tool-body">
+          <div class="tool-purpose">對應活動</div>
+          學生閱讀自編講義上所提供的英語解釋和例句，再透過教師提供的中文詞彙表，推論出生字的中文意思
+        </div>
+      </div>
+      <div class="tool-card reveal">
+        <div class="tool-header">
+          <div class="tool-icon">✏️</div>
+          <div class="tool-category">數位作答</div>
+          <div class="tool-name">T++ 手寫題</div>
+        </div>
+        <div class="tool-body">
+          <div class="tool-purpose">對應活動</div>
+          閱讀文本電子化，透過 T++ 接收文本，完成課堂指定任務
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HANDOUT -->
+<section id="handout" style="background: var(--cream);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-num">APPENDIX</div>
+      <h2 class="section-title">自編講義</h2>
+      <div class="section-divider"></div>
+      <p style="margin-top:1rem; color:var(--text-light); font-size:0.9rem;">Lesson 16 A Musical Shape — 教學素材預覽</p>
+    </div>
+
+    <!-- Context Clues 說明 -->
+    <div class="handout-block reveal">
+      <div class="handout-block-title">
+        <span class="handout-block-icon">🔍</span>
+        Comprehension Skill (6): Context Clues 文意線索
+      </div>
+      <div class="handout-intro-text">
+        當我們在閱讀時遇到不懂的單字，可以透過前後文的線索來猜單字的大概意思，這就是 <strong>Context Clues（文意線索）</strong>。
+        簡言之，用句子裡的提示字，幫助你猜單字意思。
+      </div>
+      <div class="cc-types-grid">
+        <div class="cc-type-card">
+          <div class="cc-type-name">📖 Definition<span class="cc-type-zh">定義線索</span></div>
+          <div class="cc-type-desc">句子會直接解釋單字意思</div>
+          <div class="cc-example">A <strong>bilingual</strong> person, <em>someone who can speak two languages</em>, is often very good at communication.</div>
+        </div>
+        <div class="cc-type-card">
+          <div class="cc-type-name">🔄 Synonym<span class="cc-type-zh">同義線索</span></div>
+          <div class="cc-type-desc">句子裡會用相似的字來解釋</div>
+          <div class="cc-example">The girl was <strong>joyful</strong>, <em>or happy</em>, when she got the gift.</div>
+        </div>
+        <div class="cc-type-card">
+          <div class="cc-type-name">↔️ Antonym<span class="cc-type-zh">反義線索</span></div>
+          <div class="cc-type-desc">句子裡會出現相反的字，幫助你理解</div>
+          <div class="cc-example"><em>Unlike his generous brother</em>, he is very <strong>mean</strong>.</div>
+        </div>
+        <div class="cc-type-card">
+          <div class="cc-type-name">📝 Example<span class="cc-type-zh">舉例線索</span></div>
+          <div class="cc-type-desc">作者會給例子來說明單字意思</div>
+          <div class="cc-example">She likes <strong>citrus fruits</strong>, <em>such as oranges, lemons, and limes</em>.</div>
+        </div>
+        <div class="cc-type-card" style="grid-column: span 2;">
+          <div class="cc-type-name">🌐 General Sense<span class="cc-type-zh">一般語境</span></div>
+          <div class="cc-type-desc">沒有明確解釋，但從上下文可以推測</div>
+          <div class="cc-example">He forgot to set his alarm. As a result, he was <strong>groggy</strong> and couldn't focus in class.<br><em style="color:var(--text-light); font-size:0.8rem;">（從情境可推測 groggy = 昏沉、無精神）</em></div>
+        </div>
+      </div>
+      <div class="cc-exam-box">
+        <div class="cc-exam-label">📋 以 113 年會考題為例</div>
+        <div class="cc-exam-passage">
+          From John Smith's book, I can see he is an <strong class="cc-highlight">advocate</strong> of bringing extinct animals back. He says we have lost many animals because we made their living spaces too dirty. He also thinks we must do everything we can to bring them back.
+          <div style="margin-top:0.5rem; font-size:0.8rem; color:var(--text-light);">★ extinct 絕種的</div>
+        </div>
+        <div class="cc-exam-q">What does it mean when someone is an <strong>advocate</strong> of something?</div>
+        <div class="cc-exam-options">
+          <div class="cc-option">(A) They talk a lot but do little about it.</div>
+          <div class="cc-option cc-option-correct">(B) They believe it is good and should be done. ✓</div>
+          <div class="cc-option">(C) They have had some bad experiences with it.</div>
+          <div class="cc-option">(D) They are one of the first people who have done it.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- L16 字彙表 -->
+    <div class="handout-block reveal" style="margin-top:2rem;">
+      <div class="handout-block-title">
+        <span class="handout-block-icon">📚</span>
+        Lesson 16 — A Musical Shape：字彙表（Vocabulary Bank）
+      </div>
+      <div class="vocab-grid">
+        <div class="vocab-card"><div class="vocab-num">1</div><div class="vocab-word">figure</div><div class="vocab-def">a shape, number, or person in a picture</div><div class="vocab-ex">The teacher drew a figure on the board.</div></div>
+        <div class="vocab-card"><div class="vocab-num">2</div><div class="vocab-word">steel rod</div><div class="vocab-def">鋼棒</div><div class="vocab-ex">The fence was made of steel rods.</div></div>
+        <div class="vocab-card"><div class="vocab-num">3</div><div class="vocab-word">bend into</div><div class="vocab-def">to curve or shape something into a form</div><div class="vocab-ex">He bent the wire into a circle.</div></div>
+        <div class="vocab-card"><div class="vocab-num">4</div><div class="vocab-word">equal</div><div class="vocab-def">the same in size, amount, or value</div><div class="vocab-ex">Mom cut the cake into three equal parts.</div></div>
+        <div class="vocab-card"><div class="vocab-num">5</div><div class="vocab-word">percussion</div><div class="vocab-def">a type of musical instrument that you hit</div><div class="vocab-ex">The drum is a percussion instrument.</div></div>
+        <div class="vocab-card"><div class="vocab-num">6</div><div class="vocab-word">space</div><div class="vocab-def">an empty area or distance between things</div><div class="vocab-ex">There is enough space for everyone to sit.</div></div>
+        <div class="vocab-card"><div class="vocab-num">7</div><div class="vocab-word">allow</div><div class="vocab-def">to let someone do something; to make something possible</div><div class="vocab-ex">The teacher allowed us to leave early.</div></div>
+        <div class="vocab-card"><div class="vocab-num">8</div><div class="vocab-word">directly</div><div class="vocab-def">without anything in between; straight</div><div class="vocab-ex">Go directly to the station.</div></div>
+        <div class="vocab-card"><div class="vocab-num">9</div><div class="vocab-word">block</div><div class="vocab-def">to stop something from moving or prevent something from happening</div><div class="vocab-ex">The fallen tree blocked the road.</div></div>
+        <div class="vocab-card"><div class="vocab-num">10</div><div class="vocab-word">instead</div><div class="vocab-def">in place of something else</div><div class="vocab-ex">I didn't go out; I stayed home instead.</div></div>
+        <div class="vocab-card"><div class="vocab-num">11</div><div class="vocab-word">loop</div><div class="vocab-def">a circle or ring</div><div class="vocab-ex">The triangle hangs from a loop.</div></div>
+        <div class="vocab-card"><div class="vocab-num">12</div><div class="vocab-word">string</div><div class="vocab-def">thin rope</div><div class="vocab-ex">She tied the package with a string.</div></div>
+        <div class="vocab-card"><div class="vocab-num">13</div><div class="vocab-word">float</div><div class="vocab-def">to stay on the surface of a liquid or in the air</div><div class="vocab-ex">A leaf floated on the water.</div></div>
+        <div class="vocab-card"><div class="vocab-num">14</div><div class="vocab-word">bar</div><div class="vocab-def">a long, solid piece of metal or wood</div><div class="vocab-ex">He lifted a heavy metal bar.</div></div>
+        <div class="vocab-card"><div class="vocab-num">15</div><div class="vocab-word">tap</div><div class="vocab-def">to hit lightly or gently</div><div class="vocab-ex">He tapped on the door before entering.</div></div>
+        <div class="vocab-card"><div class="vocab-num">16</div><div class="vocab-word">object</div><div class="vocab-def">a thing that you can see or touch</div><div class="vocab-ex">There is a strange object on the table.</div></div>
+        <div class="vocab-card"><div class="vocab-num">17</div><div class="vocab-word">against</div><div class="vocab-def">touching or in contact with something; opposite to</div><div class="vocab-ex">He leaned against the wall.</div></div>
+      </div>
+      <div class="handout-questions">
+        <div class="hq-title">📝 More Questions</div>
+        <div class="hq-item">
+          <div class="hq-q">1. According to the reading, the shape in the title "A Musical Shape" means ___________________.</div>
+        </div>
+        <div class="hq-item">
+          <div class="hq-q">2.（　）Who is playing the percussion instrument? <span class="hq-tag">推論</span></div>
+          <div class="hq-options">
+            <div>(A) Jamie is playing the violin.</div>
+            <div>(B) Wendy is playing the guitar.</div>
+            <div>(C) Gina is playing the drums.</div>
+          </div>
+        </div>
+        <div class="hq-item">
+          <div class="hq-q">3.（　）Why is one corner of the musical triangle open? <span class="hq-tag">細節</span></div>
+          <div class="hq-options">
+            <div>(A) To make a clear sound.</div>
+            <div>(B) To make it beautiful.</div>
+            <div>(C) To make it beat.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBSERVE -->
+<section id="observe">
+  <div class="container">
+    <div class="observe-inner reveal">
+      <div class="observe-badge">觀課資訊</div>
+      <h2 class="observe-title">英語彈性課程公開授課</h2>
+      <div class="observe-subtitle">🎵 A Musical Shape</div>
+      <div class="observe-details">
+        <div class="observe-detail-item">
+          <div class="observe-detail-label">👩‍🏫 授課教師</div>
+          <div class="observe-detail-value">柯香伶</div>
+        </div>
+        <div class="observe-detail-item">
+          <div class="observe-detail-label">📅 日期</div>
+          <div class="observe-detail-value">4/9（四）</div>
+        </div>
+        <div class="observe-detail-item">
+          <div class="observe-detail-label">🕐 時間</div>
+          <div class="observe-detail-value">第五節</div>
+        </div>
+        <div class="observe-detail-item">
+          <div class="observe-detail-label">📍 地點</div>
+          <div class="observe-detail-value">909 教室（三樓）</div>
+        </div>
+      </div>
+      <p style="font-size:0.9rem; color:var(--text-light);">歡迎各位老師蒞臨觀課，共同交流指導 🙏</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>英語彈性課程公開授課</strong> — A Musical Shape｜說課網頁版</p>
+  <p style="margin-top:0.4rem;">授課教師：柯香伶 ｜ 觀課日期：4/9（四）第五節｜909 教室</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
